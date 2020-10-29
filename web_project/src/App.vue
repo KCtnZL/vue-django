@@ -20,10 +20,11 @@ export default {
 
 <style>
   /*@import "assets/css/home.css";*/
-  html, body{
+  html, body, #app{
     margin:0;
     border:0;
     padding:0;
+    margin:0;
     width:100%;
     height:100%;
     font-size: 14px;

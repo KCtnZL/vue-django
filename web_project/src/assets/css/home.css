@@ -1,3 +1,11 @@
+#home{
+  height: 100%
+}
+
+.el-container{
+  height: 100%
+}
+
 .el-header, .el-footer {
   background-color: #B3C0D1;
   color: #333;
@@ -9,7 +17,7 @@
   background-color: #D3DCE6;
   color: #333;
   /*text-align: center;*/
-  height: 755px;
+  height: 100%;
 }
 
 .el-main {
@@ -18,8 +26,12 @@
   text-align: center;
   line-height: 160px;
 }
+
+.el-menu{
+  padding:0;
+  height: 100%
+}
+
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
-  /*height: 700px;*/
-  min-height: 700px;
 }

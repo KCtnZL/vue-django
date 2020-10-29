@@ -1,14 +1,20 @@
 <template>
-  <div>
+  <div id="home">
     <el-container>
       <el-header>Header</el-header>
       <el-container>
         <el-aside width="">
-          <el-radio-group v-model="isCollapse">
-            <el-radio-button :label="false">展开</el-radio-button>
-            <el-radio-button :label="true">收起</el-radio-button>
-          </el-radio-group>
-          <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+          <el-menu 
+            default-active="1-4-1" 
+            class="el-menu-vertical-demo" 
+            @open="handleOpen" 
+            @close="handleClose"
+            :collapse="isCollapse">
+            <el-menu-item index="0" @click="OpenOrClose">
+              <i v-if="isCollapse" class="el-icon-d-arrow-right"></i>
+              <i v-else class="el-icon-d-arrow-left"></i>
+            </el-menu-item>
+            
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-location"></i>
@@ -70,7 +76,15 @@
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      OpenOrClose(){
+        if(this.isCollapse === true){
+            this.isCollapse=false
+        }else{
+            this.isCollapse = true;
+        }
       }
+
     }
   }
 </script>
