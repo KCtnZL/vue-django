@@ -4,24 +4,26 @@
       <el-header>Header</el-header>
       <el-container>
         <el-aside width="">
-          <el-menu 
-            default-active="1-4-1" 
-            class="el-menu-vertical-demo" 
-            @open="handleOpen" 
+          <el-menu
+            default-active="1-4-1"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
             @close="handleClose"
             :collapse="isCollapse">
             <el-menu-item index="0" @click="OpenOrClose">
-              <i v-if="isCollapse" class="el-icon-d-arrow-right"></i>
-              <i v-else class="el-icon-d-arrow-left"></i>
+              <el-tooltip :content="this.tipContent" placement="top" effect="light">
+                <i content="Top Left 提示文字" v-if="isCollapse" class="el-icon-d-arrow-right"></i>
+                <i v-else class="el-icon-d-arrow-left"></i>
+              </el-tooltip>
             </el-menu-item>
-            
+
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
+                <span>导航一</span>
               </template>
               <el-menu-item-group>
-                <span slot="title">分组一</span>
+                <template slot="title">分组一</template>
                 <el-menu-item index="1-1">选项1</el-menu-item>
                 <el-menu-item index="1-2">选项2</el-menu-item>
               </el-menu-item-group>
@@ -29,7 +31,7 @@
                 <el-menu-item index="1-3">选项3</el-menu-item>
               </el-menu-item-group>
               <el-submenu index="1-4">
-                <span slot="title">选项4</span>
+                <template slot="title">选项4</template>
                 <el-menu-item index="1-4-1">选项1</el-menu-item>
               </el-submenu>
             </el-submenu>
@@ -48,15 +50,26 @@
           </el-menu>
         </el-aside>
         <el-main style="padding: 0px">
-          <el-container style="height: 100%">
-            <el-header style="background-color: #42b983">Pages</el-header>
-            <el-main>Main</el-main>
+          <el-container>
+            <el-main>
+              <el-tabs v-model="editableTabsValue" type="card" closable @edit="handleTabsEdit" @tab-click="tabClick">
+                <el-tab-pane
+                  :key="item.name"
+                  v-for="(item, index) in editableTabs"
+                  :label="item.titles"
+                  :name="item.name"
+                >
+                  <!--{{item.content}}-->
+                  <router-view/>
+                </el-tab-pane>
+              </el-tabs>
+            </el-main>
             <el-footer>Footer</el-footer>
           </el-container>
         </el-main>
       </el-container>
     </el-container>
-  
+
   </div>
 </template>
 
@@ -67,8 +80,27 @@
       return {
         isCollapse: true,
         value1: 0,
-        value2: 0
+        value2: 0,
+        tab0: true,
+        tab1: true,
+        tab2: true,
+        editableTabsValue: '2',
+        editableTabs: [{
+          titles: 'card',
+          name: 'card',
+          content: 'Tab 1 content'
+        }],
+        tabIndex: 2
       };
+    },
+    computed:{
+      tipContent(){
+        if (this.isCollapse){
+          return "展开"
+        } else {
+          return "关闭"
+        }
+      }
     },
     methods: {
       handleOpen(key, keyPath) {
@@ -79,10 +111,42 @@
       },
       OpenOrClose(){
         if(this.isCollapse === true){
-            this.isCollapse=false
+            this.isCollapse = false
         }else{
             this.isCollapse = true;
         }
+      },
+      handleTabsEdit(targetName, action) {
+        if (action === 'add') {
+          let newTabName = ++this.tabIndex + '';
+          this.editableTabs.push({
+            title: 'New Tab',
+            name: newTabName,
+            content: 'New Tab content'
+          });
+          this.editableTabsValue = newTabName;
+        }
+        if (action === 'remove') {
+          let tabs = this.editableTabs;
+          let activeName = this.editableTabsValue;
+          if (activeName === targetName) {
+            tabs.forEach((tab, index) => {
+              if (tab.name === targetName) {
+                let nextTab = tabs[index + 1] || tabs[index - 1];
+                if (nextTab) {
+                  activeName = nextTab.name;
+                }
+              }
+            });
+          }
+
+          this.editableTabsValue = activeName;
+          this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+        }
+      },
+      tabClick(tag){
+
+        this.$router.push({name:tag.name})
       }
 
     }

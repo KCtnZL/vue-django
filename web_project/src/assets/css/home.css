@@ -10,13 +10,11 @@
   background-color: #B3C0D1;
   color: #333;
   text-align: center;
-  line-height: 60px;
 }
 
 .el-aside {
   background-color: #D3DCE6;
   color: #333;
-  /*text-align: center;*/
   height: 100%;
 }
 
@@ -24,7 +22,7 @@
   background-color: #E9EEF3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  padding: 10px;
 }
 
 .el-menu{
@@ -35,3 +33,18 @@
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
 }
+
+.el-tabs__nav-scroll{
+  background-color: #FFFFFF;
+}
+/*.el-menu-item, .el-submenu{*/
+  /*padding-left: 0px !important;*/
+  /*padding-right: 0px !important;*/
+/*}*/
+
+
+#pageTag{
+  line-height: 30px;
+  background-color: #B3C0D1;
+}
+

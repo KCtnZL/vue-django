@@ -9,6 +9,14 @@ export default new Router({
       path: '/',
       name: 'home',
       component: resolve => import('@/views/home/home.vue'),
+      children:[
+        {
+          path: 'card',
+          name: 'card',
+          component: resolve => import('@/views/card/card.vue')
+        }
+      ]
+
     },
   ]
 })
