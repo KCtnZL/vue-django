@@ -52,7 +52,7 @@
         <el-main style="padding: 0px">
           <el-container>
             <el-main>
-              <el-tabs v-model="editableTabsValue" type="card" closable @edit="handleTabsEdit" @tab-click="tabClick">
+              <el-tabs v-model="editableTabsValue" type="card" closable @edit="handleTabsEdit" @tab-click="tabClick" style="height: 100%">
                 <el-tab-pane
                   :key="item.name"
                   v-for="(item, index) in editableTabs"
@@ -145,7 +145,6 @@
         }
       },
       tabClick(tag){
-
         this.$router.push({name:tag.name})
       }
 

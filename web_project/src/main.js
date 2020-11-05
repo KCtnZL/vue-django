@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
-import router from './router'
+import routers from './router'
 import Router from 'vue-router'
 import 'element-ui/lib/theme-chalk/index.css'
 import ViewUI from 'view-design';
@@ -14,7 +14,10 @@ Vue.use(ViewUI);
 Vue.use(Router);
 
 Vue.config.productionTip = false;
-
+const router = new Router({
+  mode: 'hash',
+  routes: routers
+})
 
 /* eslint-disable no-new */
 new Vue({
